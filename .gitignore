@@ -15,9 +15,10 @@ env/
 .ruff_cache/
 .pytest_cache/
 
-# Flet
+# Flet — ignore all build output except the release APK (tracked via LFS)
 .flet/
-build/
+build/*
+!build/apk/
 
 # IDE
 .idea/
