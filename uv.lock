@@ -3,11 +3,20 @@ revision = 5
 requires-python = ">=3.10"
 resolution-markers = [
     "(python_full_version >= '3.12' and platform_machine != 'ARM64') or (python_full_version >= '3.12' and sys_platform != 'win32')",
-    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
-    "(python_full_version < '3.11' and platform_machine != 'ARM64') or (python_full_version < '3.11' and sys_platform != 'win32')",
     "python_full_version >= '3.12' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version == '3.11.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "(python_full_version < '3.11' and platform_machine != 'ARM64') or (python_full_version < '3.11' and sys_platform != 'win32')",
     "python_full_version < '3.11' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+]
+
+[[package]]
+name = "aiosqlite"
+version = "0.22.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4e/8a/64761f4005f17809769d23e518d915db74e6310474e733e3593cfc854ef1/aiosqlite-0.22.1.tar.gz", hash = "sha256:043e0bd78d32888c0a9ca90fc788b38796843360c855a7262a532813133a0650", size = 14821, upload-time = "2025-12-23T19:25:43.997Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/00/b7/e3bf5133d697a08128598c8d0abc5e16377b51465a33756de24fa7dee953/aiosqlite-0.22.1-py3-none-any.whl", hash = "sha256:21c002eb13823fad740196c5a2e9d8e62f6243bd9e7e4a1f87fb5e44ecb4fceb", size = 17405, upload-time = "2025-12-23T19:25:42.139Z" },
 ]
 
 [[package]]
@@ -403,6 +412,7 @@ name = "flet-techspotlight"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "aiosqlite" },
     { name = "flet" },
 ]
 
@@ -415,7 +425,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "flet", specifier = ">=1.0.4" }]
+requires-dist = [
+    { name = "aiosqlite", specifier = ">=0.20" },
+    { name = "flet", specifier = ">=1.0.4" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -623,8 +636,8 @@ version = "2.38.1"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "(python_full_version >= '3.12' and platform_machine != 'ARM64') or (python_full_version >= '3.12' and sys_platform != 'win32')",
-    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version >= '3.12' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version == '3.11.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
 ]
 dependencies = [
@@ -1731,8 +1744,8 @@ version = "0.26.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "(python_full_version >= '3.12' and platform_machine != 'ARM64') or (python_full_version >= '3.12' and sys_platform != 'win32')",
-    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version >= '3.12' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version == '3.11.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
 ]
 dependencies = [
@@ -2043,8 +2056,8 @@ version = "1.8.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "(python_full_version >= '3.12' and platform_machine != 'ARM64') or (python_full_version >= '3.12' and sys_platform != 'win32')",
-    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version >= '3.12' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version == '3.11.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
 ]
 dependencies = [
@@ -2506,8 +2519,8 @@ version = "17.2"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "(python_full_version >= '3.12' and platform_machine != 'ARM64') or (python_full_version >= '3.12' and sys_platform != 'win32')",
-    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version >= '3.12' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "(python_full_version == '3.11.*' and platform_machine != 'ARM64') or (python_full_version == '3.11.*' and sys_platform != 'win32')",
     "python_full_version == '3.11.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/01/89/3f825ab71c242fffb62ea8fe638741c290f62f8d7aadf8125ff897747af3/websockets-17.2.tar.gz", hash = "sha256:36c2fb94c990cc2545143b12690e2de6c16300f9dbe5b4f33fa300cf57dc8792", size = 188355, upload-time = "2026-10-03T14:56:53.5Z" }

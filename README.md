@@ -18,6 +18,30 @@ uv run flet run --web
 
 For more details on running the app, refer to the [Getting Started Guide](https://flet.dev/docs/).
 
+## Hotspot data
+
+The app displays live "hotspot" data from a shared SQLite database at
+`data/hotspot-data.db` (git-ignored, created on first use). The asyncio
+service in `backend/tools/main.py` writes it and the Flet app reads it
+via `ui/src/database.py`. Both sides enable WAL journaling and a busy
+timeout, so the two processes can use the same file concurrently.
+
+```bash
+# Install dependencies (brings in aiosqlite)
+uv sync
+
+# Create + seed the database and run a single work pass
+uv run python backend/tools/main.py --once
+
+# ...or run the service continuously (toggles a hotspot every 5s and
+# records each change in an events table)
+uv run python backend/tools/main.py
+```
+
+Override the database location for either side with the `HOTSPOT_DATA_DB`
+environment variable. Without the database, the app shows
+"no hotspot data yet — run backend/tools/main.py".
+
 ## Build the app
 
 ### Android
