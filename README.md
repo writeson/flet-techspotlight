@@ -147,6 +147,53 @@ flet build macos -v
 
 For more details on building macOS package, refer to the [macOS Packaging Guide](https://flet.dev/docs/publish/macos/).
 
+#### Deployment target patch (required for Xcode 27+)
+
+The flet build template (v1.0.4) hardcodes a macOS deployment target of
+**11.0** (and some pods declare **10.15**), but Xcode 27 refuses
+deployment targets below **12.0**, so the build fails with errors like:
+
+```
+The macOS deployment target "MACOSX_DEPLOYMENT_TARGET" is set to 11.0,
+but the range of supported deployment target versions is 12.0 to 27.0.x
+```
+
+There is no config option to change this (`pyproject.toml` has no
+override), so the fix is applied directly to the generated project in
+`build/flutter/macos/` (which is git-ignored):
+
+1. `Runner.xcodeproj/project.pbxproj` — replace all occurrences of
+   `MACOSX_DEPLOYMENT_TARGET = 11.0;` with `12.0`:
+
+   ```bash
+   sed -i '' 's/MACOSX_DEPLOYMENT_TARGET = [0-9.]*;/MACOSX_DEPLOYMENT_TARGET = 12.0;/g' \
+     build/flutter/macos/Runner.xcodeproj/project.pbxproj
+   ```
+
+2. `Podfile` — raise the platform:
+
+   ```ruby
+   platform :osx, '12.0'
+   ```
+
+3. `Podfile` — inside the `post_install` block, add a floor so every pod
+   target lands at 12.0 or above (pods may declare older minimums):
+
+   ```ruby
+   target.build_configurations.each do |config|
+     current_min = config.build_settings['MACOSX_DEPLOYMENT_TARGET']
+     if current_min.nil? || Gem::Version.new(current_min) < Gem::Version.new('12.0')
+       config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '12.0'
+     end
+   end
+   ```
+
+**When to reapply:** same as the iOS patch above — reapply it whenever
+flet re-renders the Flutter project (flet upgrade, or a build-option
+change in `pyproject.toml`, such as editing `[tool.flet.app] path`).
+If a build fails with the 11.0 error above, reapplying the three edits
+is enough.
+
 ### Linux
 
 ```bash
