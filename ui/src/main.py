@@ -1,6 +1,6 @@
 import flet as ft
 
-from database import load_hotspots_text
+from database import load_payments_summary
 
 
 async def main(page: ft.Page):
@@ -10,7 +10,7 @@ async def main(page: ft.Page):
         counter.data += 1
         counter.value = str(counter.data)
 
-    hotspots = ft.Text("loading hotspot data…", size=14, italic=True)
+    payments = ft.Text("loading payment data…", size=14, italic=True)
 
     page.floating_action_button = ft.FloatingActionButton(
         icon=ft.Icons.ADD, key="increment", on_click=increment_click
@@ -22,7 +22,7 @@ async def main(page: ft.Page):
                 content=ft.Column(
                     [
                         counter,
-                        hotspots,
+                        payments,
                     ],
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     spacing=24,
@@ -31,7 +31,7 @@ async def main(page: ft.Page):
             ),
         )
     )
-    hotspots.value = await load_hotspots_text()
+    payments.value = await load_payments_summary()
     page.update()
 
 
