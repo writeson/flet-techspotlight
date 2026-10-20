@@ -10,7 +10,7 @@ env/
 # Environments / secrets
 .env
 
-# Runtime SQLite database (shared by backend/tools and ui/src)
+# Runtime SQLite database (payments heatmap, shared by backend/tools and ui/src)
 /data/
 
 # Tool caches
@@ -20,8 +20,9 @@ env/
 
 # Flet — ignore all build output except the release APK (tracked via LFS)
 .flet/
-build/*
-!build/apk/
+ui/src/build/*
+!ui/src/build/apk/
+ui/tests/build/
 
 # IDE
 .idea/

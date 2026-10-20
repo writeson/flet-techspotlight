@@ -1,0 +1,37 @@
+[project]
+name = "flet-techspotlight-ui-tests"
+version = "0.1.0"
+description = "pytest suite for the flet-techspotlight Flet app"
+requires-python = ">=3.10"
+# The device-mode test host builds its bundled site-packages from
+# [project].dependencies of THIS pyproject (the directory pytest runs from),
+# not from ui/src's — keep it in sync with the app's runtime deps. Dev groups
+# are not bundled.
+dependencies = [
+    "flet>=1.0.4",
+    "aiosqlite>=0.20",
+]
+
+[dependency-groups]
+dev = [
+    # Integration testing with `uv run pytest`. The `test` extra brings in
+    # pytest, pytest-asyncio and the screenshot-comparison dependencies.
+    "flet[test]>=1.0.4",
+    # The flet pytest plugin uses flet-cli to provision the Flutter test host.
+    "flet-cli>=1.0.4",
+]
+
+# A test directory, not an installable package: `uv sync` installs the
+# dependencies + dev group into ui/tests/.venv and creates ui/tests/uv.lock.
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+# Let tests import app modules directly (flat module layout, not a package).
+pythonpath = ["../src"]
+
+# The flet pytest plugin provisions the Flutter test host from the pyproject
+# in the current directory; point it at the app dir one level up.
+[tool.flet.app]
+path = "../src"
