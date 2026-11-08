@@ -11,7 +11,7 @@ env/
 .env
 
 # Runtime SQLite database (payments heatmap, shared by backend/tools and ui/src)
-/data/
+/database/
 
 # Tool caches
 .mypy_cache/
